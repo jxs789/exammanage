@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import { Route, Link } from 'dva/router';
 import styles from "./main.css"
-import { Dropdown, Menu, Icon, Spin, Select } from 'antd';
+import { Dropdown, Menu, Icon, Spin, Select, Modal, Form, Input } from 'antd';
 import Grade from "./classRoom/grade"
 import Room from "./classRoom/room"
 import Student from "./classRoom/student"
@@ -21,12 +21,13 @@ import { injectIntl } from 'react-intl';
 const { SubMenu } = Menu;
 const { Option } = Select;
 function IndexPage(props) {
+  let [visible, setvisible] = useState(false);
   let [url, seturl] = useState('https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png')
   const menu = (
     <Menu>
       <Menu.Item key="0">
         <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-          {props.intl.formatMessage({ id: 'personage.personal_center'})}
+          {props.intl.formatMessage({ id: 'personage.personal_center' })}
         </a>
       </Menu.Item>
       <Menu.Item key="1">
@@ -44,10 +45,23 @@ function IndexPage(props) {
     </Menu>
 
   );
+  let showModal = () => {
+    console.log(1);
+    setvisible(true);
+  };
+
+  let handleOk = e => {
+
+    setvisible(false);
+  };
+
+  let handleCancel = e => {
+    console.log(e);
+    setvisible(false);
+  };
   let load = (e, res) => {
     let formData = new FormData();
     formData.append(e.target.files[0].name, e.target.files[0]);
-    // console.log('form...', formData, formData.get(e.target.files[0].name));
     props.getUrl(formData)
     props.setUser({ user_id: res.user_id, avatar: props.imgUrl })
   }
@@ -55,6 +69,7 @@ function IndexPage(props) {
     // console.log('click ', e);
 
   };
+  const { getFieldDecorator } = props.form;
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
@@ -64,9 +79,8 @@ function IndexPage(props) {
           <Option value="英文" onClick={() => props.changeLocale('en')}>English</Option>
         </Select>
         <div className={styles.logout}>
-          <input type="file" id="file" name="" style={{ display: "none" }} onChange={(e) => load(e, props.userInfo)} />
           <Dropdown overlay={menu}>
-            <span>
+            <span onClick={showModal}>
               <img src={props.imgUrl ? props.imgUrl : url} style={{ width: 50, height: 50, zIndex: 9999 }} />
               {props.userInfo.user_name}
             </span>
@@ -74,7 +88,22 @@ function IndexPage(props) {
           {/* <label htmlFor="file" for="file"> 
 
          </label> */}
-
+          <Modal
+            title="Basic Modal"
+            visible={visible}
+            onOk={() => handleOk()}
+            onCancel={() => handleCancel()}
+          >
+            <Form layout="vertical">
+              <Form.Item label="User_name">
+                {getFieldDecorator('user_name')(
+                  <Input type="text" style={{ marginBottom: 20 }} />
+                )}
+                <input type="file" name="" onChange={(e) => load(e, props.userInfo)} style={{ }} className={styles.files} />
+                <img src={props.imgUrl ? props.imgUrl : url} style={{}} className={styles.imgUrl} />
+              </Form.Item>
+            </Form>
+          </Modal>
         </div>
       </div>
       <div className={styles.layout_content}>
@@ -205,4 +234,4 @@ const mapDispatch = dispatch => {
     }
   }
 }
-export default injectIntl(connect(mapState, mapDispatch)(IndexPage));
+export default injectIntl(connect(mapState, mapDispatch)(Form.create()(IndexPage)))

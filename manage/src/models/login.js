@@ -59,12 +59,15 @@ export default {
         payload: data.code
       })
     },
+    //获取用户信息
     *getUserInfo(action, { call, put, select }) {   //获取用户信息
       let userInfo = yield select(state => state.login.userInfo);
+      //1.判断用户是否有获取用户信息
       if (Object.keys(userInfo).length) {  //判断有没有获取到用户信息，获取到的是一个对象转成数组,去判断
         return;
       }
-      console.log('userInfo...', userInfo);
+      // console.log('userInfo...', userInfo);
+      //2.获取用户信息
       let data = yield getUserInfo();
       // console.log('data...', data);
       yield put({

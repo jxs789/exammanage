@@ -25,6 +25,8 @@
 }
 .logout{
    height: 64px;
+   position: relative;
+
 }
 .logout span{
     display: inline-block;
@@ -96,4 +98,14 @@ input{
   justify-content: center;
   background: rgba(0, 0, 0, .3);
   z-index:999 
+}
+.files{
+height: 120px;
+ 
+}
+.imgUrl{
+ width: 80px;height: 80px;border-radius:40px; z-index: 9999;
+   position: absolute;
+  top:-90px;
+  left:10px
 }

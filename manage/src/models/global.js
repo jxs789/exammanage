@@ -4,7 +4,7 @@ export default {
 
     // 模块的状态
     state: {
-        locale: navigator.language.indexOf('zh') != -1 ? 'zh' : 'en'
+        locale: navigator.language.indexOf('zh') !== -1 ? 'zh' : 'en'
     },
 
     // 同步操作
