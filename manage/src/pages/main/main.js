@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, } from 'react';
 import { connect } from 'dva';
-import { Route, Link } from 'dva/router';
+import { Route, Redirect, NavLink } from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon, Spin, Select, Modal, Form, Input } from 'antd';
 import Grade from "./classRoom/grade"
@@ -70,6 +70,10 @@ function IndexPage(props) {
 
   };
   const { getFieldDecorator } = props.form;
+  //获取我的路由啥也不去渲染
+  if (!props.myView.length) {
+    return null
+  }
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
@@ -99,7 +103,7 @@ function IndexPage(props) {
                 {getFieldDecorator('user_name')(
                   <Input type="text" style={{ marginBottom: 20 }} />
                 )}
-                <input type="file" name="" onChange={(e) => load(e, props.userInfo)} style={{ }} className={styles.files} />
+                <input type="file" name="" onChange={(e) => load(e, props.userInfo)} className={styles.files} />
                 <img src={props.imgUrl ? props.imgUrl : url} style={{}} className={styles.imgUrl} />
               </Form.Item>
             </Form>
@@ -109,14 +113,57 @@ function IndexPage(props) {
       <div className={styles.layout_content}>
         <div className={styles.slide}>
           <Menu
+            theme="dark"
+            // defaultOpenKeys={[props.myView[0].name]}
+            // defaultSelectedKeys={[props.myView[0].children[0].name]}
+            style={{ width: 200 }}
+            mode="inline"
+          >
+            {
+              props.myView.map(item => {
+                return <SubMenu
+                  key={item.name}
+                  title={
+                    <span>
+                      <Icon type="mail" />
+                      <span>{props.intl.formatMessage({ id: item.name })}</span>
+                    </span>
+                  }
+                >{
+                    item.children.map(value => {
+                      return <Menu.Item key={value.name}>
+                        <NavLink to={value.path}>{props.intl.formatMessage({ id: value.name })}</NavLink>
+                      </Menu.Item>
+                    })
+                  }</SubMenu>
+              })
+            }
+            {/* <Menu
             onClick={handleClick}
             style={{ width: 200 }}
-            defaultSelectedKeys={[]}
-            defaultOpenKeys={[]}
+            // defaultSelectedKeys={[props.myView[0].name]}
+            // defaultOpenKeys={[props.myView[0].children[0].name]}
             mode="inline"
             theme="dark"
           >
-            <SubMenu
+            {
+              props.myView.map(item => {
+                return <SubMenu
+                  key={item.name}
+                  title={
+                    <span>
+                      <Icon type="mail" />
+                      <span>{props.intl.formatMessage({ id: item.name })}</span>
+                    </span>
+                  }
+                >{item.children.map(val => {
+                  return <Menu.Item key={val.name}><NavLink to={val.path}>{props.intl.formatMessage({ id: val.name })}</NavLink></Menu.Item>
+                })}
+
+                </SubMenu>
+              })
+            }           */}
+            {/* <SubMenu
               key="sub1"
               title={
                 <span>
@@ -128,8 +175,8 @@ function IndexPage(props) {
               <Menu.Item key="1"><Link to="/main/addquestion">{props.intl.formatMessage({ id: 'router.questions.add' })}</Link></Menu.Item>
               <Menu.Item key="2"><Link to="/main/questiontype">{props.intl.formatMessage({ id: 'router.questions.view' })}</Link></Menu.Item>
               <Menu.Item key="3"><Link to="/main/watchquestion">{props.intl.formatMessage({ id: 'router.questions.type' })}</Link></Menu.Item>
-            </SubMenu>
-            <SubMenu
+            </SubMenu> */}
+            {/* <SubMenu
               key="sub2"
               title={
                 <span>
@@ -140,8 +187,8 @@ function IndexPage(props) {
             >
               <Menu.Item key="4"><Link to="/main/adduser">{props.intl.formatMessage({ id: 'router.user.add' })}</Link></Menu.Item>
               <Menu.Item key="5"><Link to="/main/showuser">{props.intl.formatMessage({ id: 'router.user.show' })}</Link></Menu.Item>
-            </SubMenu>
-            <SubMenu
+            </SubMenu> */}
+            {/* <SubMenu
               key="sub3"
               title={
                 <span>
@@ -152,8 +199,8 @@ function IndexPage(props) {
             >
               <Menu.Item key="6"><Link to="/main/addexam">{props.intl.formatMessage({ id: 'router.exam.add' })}</Link></Menu.Item>
               <Menu.Item key="7"><Link to="/main/examlist">{props.intl.formatMessage({ id: 'router.exam.list' })}</Link></Menu.Item>
-            </SubMenu>
-            <SubMenu
+            </SubMenu> */}
+            {/* <SubMenu
               key="sub4"
               title={
                 <span>
@@ -165,8 +212,8 @@ function IndexPage(props) {
               <Menu.Item key="8"><Link to="/main/grade">{props.intl.formatMessage({ id: 'router.classroom.class' })}</Link></Menu.Item>
               <Menu.Item key="9"><Link to="/main/room">{props.intl.formatMessage({ id: 'router.classroom.management' })}</Link></Menu.Item>
               <Menu.Item key="10"><Link to="/main/student">{props.intl.formatMessage({ id: 'router.classroom.student' })}</Link></Menu.Item>
-            </SubMenu>
-            <SubMenu
+            </SubMenu> */}
+            {/* <SubMenu
               key="sub5"
               title={
                 <span>
@@ -175,8 +222,8 @@ function IndexPage(props) {
                 </span>
               }
             >
-              <Menu.Item key="11"><Link to="/main/page">待批班级</Link></Menu.Item>
-            </SubMenu>
+              <Menu.Item key="11"><Link to="/main/page">{props.intl.formatMessage({ id: 'router.examination.class' })}</Link></Menu.Item>
+            </SubMenu> */}
           </Menu>
         </div>
         <div className={styles.content}>
@@ -195,19 +242,37 @@ function IndexPage(props) {
             <Route path="/main/showuser" component={ShowUser} />
             <Route path="/main/examEdit" component={ExamEdit} />
             <Route path="/main/examDetail" component={ExamDetail} />
+            <Redirect from="/main" exact to="/main/addQuestions" />
+            {/* 配置用户拥有的路由 */}
+            {
+              props.myView.map(item => {
+                return item.children.map(value => {
+                  return <Route key={value.name} path={value.path} component={value.component}></Route>
+                })
+              })
+            }
+            {/*配置用户禁止访问的路由*/}
+            {/* {props.forbiddenView.map((item) => {
+              return <Redirect path={item.path} to="/403" key={item.name} />
+
+            })} */}
+            {/*配置不存在的路由*/}
+            {/* <Redirect to="/404"></Redirect> */}
           </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>
 
       </div>
-    </div>
+    </div >
   );
 }
 const mapState = state => {
   return {
     ...state.checkTheItem,
     global: state.loading.global,
-    ...state.login
+    ...state.login,
+    myView: state.login.myView,
+    forbiddenView: state.login.forbiddenView
   };
 };
 const mapDispatch = dispatch => {

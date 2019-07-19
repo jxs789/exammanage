@@ -1,6 +1,7 @@
-import { login, userInfor, getUserInfo, Upuser, getBaseurl } from "../services/index"
+import { login, userInfor, getUserInfo, Upuser, getBaseurl, getViewAuthority } from "../services/index"
 import { setToken, getToken } from "../utils/index"
 import { routerRedux } from "dva/router"
+import allAuthority from "../routes/config"
 export default {
   //命名空间：
   namespace: 'login',
@@ -9,7 +10,11 @@ export default {
     isLogin: -1,
     userInfo: {},
     upuser: {},
-    imgUrl: ""
+    imgUrl: "",
+    myView: [],//已有路由
+    forbiddenView: [] //403不能取得路由页面 myView: [],
+
+
 
   },
   //订阅：
@@ -74,13 +79,21 @@ export default {
         type: 'updateUserInfo',
         payload: data.data
       })
+      //3.获取用户权限
+      let authority = yield getViewAuthority();
+      console.log(authority, "111111");
+      yield put({
+        type: "updateViewAuthority",
+        payload: authority.data
+
+      })
 
     },
     //更新用户信息
     *getUserC({ payload, type }, { call, put }) {
-      console.log(type, '//////////////////')
+      // console.log(type, '//////////////////')
       let data = yield call(Upuser, payload);
-      console.log(data)
+      // console.log(data)
       yield put({
         type: "upusers",
         payload: data
@@ -111,6 +124,28 @@ export default {
     baseUrl(state, action) {
       return { ...state, imgUrl: action.payload }
 
+    },
+    updateViewAuthority(state, action) {
+      console.log(state, action)
+      // 筛选出我拥有的路由
+      let myView = [], forbiddenView = [];
+      allAuthority.routes.forEach(item => {
+        let obj = {
+          name: item.name,
+          children: []
+        }
+        item.children.forEach(value => {
+          if (action.payload.findIndex(item => item.view_id === value.view_id) !== -1) {
+            obj.children.push(value);
+          } else {
+            forbiddenView.push(value);
+          }
+        })
+
+        myView.push(obj)
+      })
+
+      return { ...state, myView, forbiddenView }
     }
   },
 };

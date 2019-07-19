@@ -30,6 +30,7 @@ let RouterView = connect(mapStateToProps)((props) => {
     <IntlProvider locale={props.locale} messages={localMap[props.locale]}>
       <Router history={props.history}>
         <Switch>
+          <Redirect from="/" exact to="/main" />
           <Route path="/main" component={Main} />
           <Route path="/login" component={Login} />
           <Redirect from="/" to="/login"></Redirect>

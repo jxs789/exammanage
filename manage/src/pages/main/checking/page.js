@@ -3,7 +3,7 @@ import "../question/question.css"
 import { Route, Redirect } from 'dva/router';
 import TestPaper from "./page/testPaper";
 import ClassList from "./page/classList";
-function Page(){
+function Page() {
     return (
         <div>
             <Route path="/main/page/classList" component={ClassList} />
