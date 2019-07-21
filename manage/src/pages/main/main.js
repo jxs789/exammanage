@@ -1,22 +1,8 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import { Route, Redirect, NavLink } from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon, Spin, Select, Modal, Form, Input } from 'antd';
-import Grade from "./classRoom/grade"
-import Room from "./classRoom/room"
-import Student from "./classRoom/student"
-import AddExam from "./exam/addexam/addExam"
-import ExamList from "./exam/examList/eaxmList"
-import AddQuestion from "./question/addQuestion"
-import QuestionType from "./question/questionsType"
-import WatchQuestion from "./question/checkTheitem"
-import Questions from "./question/questions/questions"
-import AddUser from "./user/addUser"
-import ShowUser from "./user/showUser"
-import Page from './checking/page';
-import ExamEdit from "./exam/addexam/examEdit"
-import ExamDetail from "./exam/examList/examDetail"
 import { injectIntl } from 'react-intl';
 const { SubMenu } = Menu;
 const { Option } = Select;
@@ -45,13 +31,15 @@ function IndexPage(props) {
     </Menu>
 
   );
+  // useEffect(() => {
+  //   console.log(props.upuser)
+  // }, [props.upuser])
   let showModal = () => {
     console.log(1);
     setvisible(true);
   };
 
   let handleOk = e => {
-
     setvisible(false);
   };
 
@@ -89,9 +77,6 @@ function IndexPage(props) {
               {props.userInfo.user_name}
             </span>
           </Dropdown>
-          {/* <label htmlFor="file" for="file"> 
-
-         </label> */}
           <Modal
             title="Basic Modal"
             visible={visible}
@@ -114,8 +99,8 @@ function IndexPage(props) {
         <div className={styles.slide}>
           <Menu
             theme="dark"
-            // defaultOpenKeys={[props.myView[0].name]}
-            // defaultSelectedKeys={[props.myView[0].children[0].name]}
+            defaultOpenKeys={[props.myView[0].name]}
+            defaultSelectedKeys={[props.myView[0].children[0].name]}
             style={{ width: 200 }}
             mode="inline"
           >
@@ -131,6 +116,9 @@ function IndexPage(props) {
                   }
                 >{
                     item.children.map(value => {
+                      if (!value.name) {
+                        return
+                      }
                       return <Menu.Item key={value.name}>
                         <NavLink to={value.path}>{props.intl.formatMessage({ id: value.name })}</NavLink>
                       </Menu.Item>
@@ -138,111 +126,10 @@ function IndexPage(props) {
                   }</SubMenu>
               })
             }
-            {/* <Menu
-            onClick={handleClick}
-            style={{ width: 200 }}
-            // defaultSelectedKeys={[props.myView[0].name]}
-            // defaultOpenKeys={[props.myView[0].children[0].name]}
-            mode="inline"
-            theme="dark"
-          >
-            {
-              props.myView.map(item => {
-                return <SubMenu
-                  key={item.name}
-                  title={
-                    <span>
-                      <Icon type="mail" />
-                      <span>{props.intl.formatMessage({ id: item.name })}</span>
-                    </span>
-                  }
-                >{item.children.map(val => {
-                  return <Menu.Item key={val.name}><NavLink to={val.path}>{props.intl.formatMessage({ id: val.name })}</NavLink></Menu.Item>
-                })}
-
-                </SubMenu>
-              })
-            }           */}
-            {/* <SubMenu
-              key="sub1"
-              title={
-                <span>
-                  <Icon type="mail" />
-                  <span>{props.intl.formatMessage({ id: 'router.questions' })}</span>
-                </span>
-              }
-            >
-              <Menu.Item key="1"><Link to="/main/addquestion">{props.intl.formatMessage({ id: 'router.questions.add' })}</Link></Menu.Item>
-              <Menu.Item key="2"><Link to="/main/questiontype">{props.intl.formatMessage({ id: 'router.questions.view' })}</Link></Menu.Item>
-              <Menu.Item key="3"><Link to="/main/watchquestion">{props.intl.formatMessage({ id: 'router.questions.type' })}</Link></Menu.Item>
-            </SubMenu> */}
-            {/* <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="user" />
-                  <span>{props.intl.formatMessage({ id: 'router.user' })}</span>
-                </span>
-              }
-            >
-              <Menu.Item key="4"><Link to="/main/adduser">{props.intl.formatMessage({ id: 'router.user.add' })}</Link></Menu.Item>
-              <Menu.Item key="5"><Link to="/main/showuser">{props.intl.formatMessage({ id: 'router.user.show' })}</Link></Menu.Item>
-            </SubMenu> */}
-            {/* <SubMenu
-              key="sub3"
-              title={
-                <span>
-                  <Icon type="user" />
-                  <span>{props.intl.formatMessage({ id: 'router.exam' })}</span>
-                </span>
-              }
-            >
-              <Menu.Item key="6"><Link to="/main/addexam">{props.intl.formatMessage({ id: 'router.exam.add' })}</Link></Menu.Item>
-              <Menu.Item key="7"><Link to="/main/examlist">{props.intl.formatMessage({ id: 'router.exam.list' })}</Link></Menu.Item>
-            </SubMenu> */}
-            {/* <SubMenu
-              key="sub4"
-              title={
-                <span>
-                  <Icon type="project" />
-                  <span>{props.intl.formatMessage({ id: 'router.classroom' })}</span>
-                </span>
-              }
-            >
-              <Menu.Item key="8"><Link to="/main/grade">{props.intl.formatMessage({ id: 'router.classroom.class' })}</Link></Menu.Item>
-              <Menu.Item key="9"><Link to="/main/room">{props.intl.formatMessage({ id: 'router.classroom.management' })}</Link></Menu.Item>
-              <Menu.Item key="10"><Link to="/main/student">{props.intl.formatMessage({ id: 'router.classroom.student' })}</Link></Menu.Item>
-            </SubMenu> */}
-            {/* <SubMenu
-              key="sub5"
-              title={
-                <span>
-                  <Icon type="project" />
-                  <span>{props.intl.formatMessage({ id: 'router.examination' })}</span>
-                </span>
-              }
-            >
-              <Menu.Item key="11"><Link to="/main/page">{props.intl.formatMessage({ id: 'router.examination.class' })}</Link></Menu.Item>
-            </SubMenu> */}
           </Menu>
         </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
-            <Route path="/main/page" component={Page} />
-            <Route path="/main/grade" component={Grade} />
-            <Route path="/main/room" component={Room} />
-            <Route path="/main/student" component={Student} />
-            <Route path="/main/addexam" component={AddExam} />
-            <Route path="/main/examlist" component={ExamList} />
-            <Route path="/main/addquestion" component={AddQuestion} />
-            <Route path="/main/questiontype" component={QuestionType} />
-            <Route path="/main/watchquestion" component={WatchQuestion} />
-            <Route path="/main/questions/:id" component={Questions} />
-            <Route path="/main/adduser" component={AddUser} />
-            <Route path="/main/showuser" component={ShowUser} />
-            <Route path="/main/examEdit" component={ExamEdit} />
-            <Route path="/main/examDetail" component={ExamDetail} />
-            <Redirect from="/main" exact to="/main/addQuestions" />
             {/* 配置用户拥有的路由 */}
             {
               props.myView.map(item => {
@@ -252,10 +139,10 @@ function IndexPage(props) {
               })
             }
             {/*配置用户禁止访问的路由*/}
-            {/* {props.forbiddenView.map((item) => {
+            {props.forbiddenView.map((item) => {
               return <Redirect path={item.path} to="/403" key={item.name} />
 
-            })} */}
+            })}
             {/*配置不存在的路由*/}
             {/* <Redirect to="/404"></Redirect> */}
           </div>
@@ -284,7 +171,6 @@ const mapDispatch = dispatch => {
       })
     },
     setUser: payload => {
-      console.log(payload)
       dispatch({
         type: "login/getUserC",
         payload

@@ -42,9 +42,7 @@ export default {
           dispatch({
             type: 'getUserInfo'
           })
-        } else {
-          return
-        }
+        } 
       });
     },
   },

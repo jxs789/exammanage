@@ -38,6 +38,8 @@ export default {
     'router.exam': 'Exam',
     'router.exam.add': 'AddExam',
     'router.exam.list': 'ExamList',
+    'router.exam.examEdit': "examEdit",
+    'router.exam.examDetail':'examDetail',
 
     'router.classroom': 'Classroom',
     'router.classroom.class': 'ClassManagement',

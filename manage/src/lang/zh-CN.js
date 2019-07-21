@@ -37,6 +37,8 @@ export default {
     'router.exam': '考试管理',
     'router.exam.add': '添加考试',
     'router.exam.list': '考试列表',
+    'router.exam.examEdit': "创建试卷",
+    'router.exam.examDetail': "试卷详情",
 
     'router.classroom': '班级管理',
     'router.classroom.class': '班级管理',

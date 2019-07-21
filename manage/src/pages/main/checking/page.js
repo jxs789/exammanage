@@ -6,9 +6,9 @@ import ClassList from "./page/classList";
 function Page() {
     return (
         <div>
-            <Route path="/main/page/classList" component={ClassList} />
+            {/* <Route path="/main/page/classList" component={ClassList} />
             <Route path="/main/page/testPaper" component={TestPaper} />
-            <Redirect to="/main/page/classList" />
+            <Redirect to="/main/page/classList" /> */}
         </div>
     )
 

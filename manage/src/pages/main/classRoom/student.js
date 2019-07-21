@@ -47,7 +47,7 @@ function StudentMange(props) {
     const { Column} = Table;
 	return (
 		<div>
-            <h2>{props.intl.formatMessage({ id: 'classroom.room' })}</h2>
+            <h2>{props.intl.formatMessage({ id: 'router.classroom.student' })}</h2>
 			<div>
             <Form layout="inline">
                     <Form.Item>

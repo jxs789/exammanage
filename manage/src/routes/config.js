@@ -3,12 +3,16 @@ import QuestionType from "../pages/main/question/questionsType"
 import WatchQuestion from "../pages/main/question/checkTheitem"
 import AddUser from "../pages/main/user/addUser"
 import ShowUser from "../pages/main/user/showUser"
+import AddExam from "../pages/main/exam/addexam/addExam"
 import ExamEdit from "../pages/main/exam/addexam/examEdit"
+import ExamList from "../pages/main/exam/examList/eaxmList"
 import ExamDetail from "../pages/main/exam/examList/examDetail"
 import Grade from "../pages/main/classRoom/grade"
 import Room from "../pages/main/classRoom/room"
 import Student from "../pages/main/classRoom/student"
 import ClassList from "../pages/main/checking/page/classList";
+import Page from '../pages/main/checking/page';
+import TestPaper from "../pages/main/checking/page/testPaper";
 export default {
   routes: [
     {
@@ -22,12 +26,12 @@ export default {
           component: AddQuestion
         }, {
           view_id: "main-questionsType",
-          name: "router.questions.view",
+          name: "router.questions.type",
           path: "/main/questiontype",
           component: QuestionType
         }, {
           view_id: "main-watchQuestions",
-          name: "router.questions.type",
+          name: "router.questions.view",
           path: "/main/watchquestion",
           component: WatchQuestion
         }
@@ -58,11 +62,24 @@ export default {
           view_id: "main-addExam",
           name: "router.exam.add",
           path: "/main/addexam",
-          component: ExamEdit
+          component: AddExam
         }, {
           view_id: "main-menu",
           name: "router.exam.list",
           path: "/main/examlist",
+          component: ExamList
+        },
+        {
+          view_id: "main-examEdit",
+          name: "",
+          path: "/main/examEdit",
+          component: ExamEdit
+        }
+        ,
+        {
+          view_id: "main-examDetail",
+          name: "",
+          path: "/main/examDetail",
           component: ExamDetail
         }
 
@@ -96,9 +113,15 @@ export default {
         {
           view_id: "main-examPaperClassList",
           name: "router.examination.class",
-          path: "/main/page",
-          component: ClassList
-        }
+          path: "/main/page/classList",
+          component: ClassList,
+        },
+        {
+          view_id: "main-examPaperClassmate",
+          name: "",
+          path: "/main/page/testPaper",
+          component: TestPaper,
+        },
       ]
     }
   ]
