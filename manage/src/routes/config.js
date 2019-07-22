@@ -13,6 +13,7 @@ import Student from "../pages/main/classRoom/student"
 import ClassList from "../pages/main/checking/page/classList";
 import Page from '../pages/main/checking/page';
 import TestPaper from "../pages/main/checking/page/testPaper";
+import Exoprts from "../pages/main/exports/index"
 export default {
   routes: [
     {
@@ -122,7 +123,14 @@ export default {
           path: "/main/page/testPaper",
           component: TestPaper,
         },
+        {
+         view_id: "main-examPaperClassList",
+          name: "router.exports",
+          path: "/main/exports",
+          component: Exoprts,
+        }
       ]
-    }
+    },
+
   ]
 }

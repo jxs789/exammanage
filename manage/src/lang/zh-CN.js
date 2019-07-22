@@ -47,5 +47,6 @@ export default {
 
     'router.examination': '阅卷管理',
     'router.examination.class': '待比班级',
+    'router.exports': "导入导出",
 
 }

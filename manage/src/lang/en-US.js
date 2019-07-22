@@ -39,7 +39,7 @@ export default {
     'router.exam.add': 'AddExam',
     'router.exam.list': 'ExamList',
     'router.exam.examEdit': "examEdit",
-    'router.exam.examDetail':'examDetail',
+    'router.exam.examDetail': 'examDetail',
 
     'router.classroom': 'Classroom',
     'router.classroom.class': 'ClassManagement',
@@ -48,4 +48,5 @@ export default {
 
     'router.examination': 'Examination',
     'router.examination.class': 'AwaitingClass',
+    'router.exports': "Exports",
 }

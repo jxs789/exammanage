@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
-import { Route, Redirect, NavLink } from 'dva/router';
+import { Route, Redirect, NavLink, Switch } from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon, Spin, Select, Modal, Form, Input } from 'antd';
 import { injectIntl } from 'react-intl';
+import Exoprts from "../main/exports/index"
 const { SubMenu } = Menu;
 const { Option } = Select;
 function IndexPage(props) {
@@ -44,7 +45,7 @@ function IndexPage(props) {
   };
 
   let handleCancel = e => {
-    console.log(e);
+    // console.log(e);
     setvisible(false);
   };
   let load = (e, res) => {
@@ -130,21 +131,23 @@ function IndexPage(props) {
         </div>
         <div className={styles.content}>
           <div className={styles.layout_main}>
-            {/* 配置用户拥有的路由 */}
-            {
-              props.myView.map(item => {
-                return item.children.map(value => {
-                  return <Route key={value.name} path={value.path} component={value.component}></Route>
+            <Switch>
+              {/* 配置用户拥有的路由 */}
+              {
+                props.myView.map(item => {
+                  return item.children.map(value => {
+                    return <Route key={value.name} path={value.path} component={value.component}></Route>
+                  })
                 })
-              })
-            }
-            {/*配置用户禁止访问的路由*/}
-            {props.forbiddenView.map((item) => {
-              return <Redirect path={item.path} to="/403" key={item.name} />
+              }
+              {/*配置用户禁止访问的路由*/}
+              {props.forbiddenView.map((item) => {
+                return <Redirect path={item.path} to="/403" key={item.name} />
 
-            })}
-            {/*配置不存在的路由*/}
-            {/* <Redirect to="/404"></Redirect> */}
+              })}
+              {/*配置不存在的路由*/}
+              {/* <Redirect to="/404"></Redirect> */}
+            </Switch>
           </div>
           {props.global ? <div className={styles.loading}><Spin /></div> : null}
         </div>

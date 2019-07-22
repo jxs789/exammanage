@@ -42,7 +42,7 @@ export default {
           dispatch({
             type: 'getUserInfo'
           })
-        } 
+        }
       });
     },
   },
@@ -79,7 +79,7 @@ export default {
       })
       //3.获取用户权限
       let authority = yield getViewAuthority();
-      console.log(authority, "111111");
+      // console.log(authority, "111111");
       yield put({
         type: "updateViewAuthority",
         payload: authority.data
@@ -91,7 +91,7 @@ export default {
     *getUserC({ payload, type }, { call, put }) {
       // console.log(type, '//////////////////')
       let data = yield call(Upuser, payload);
-      // console.log(data)
+      //console.log(data)
       yield put({
         type: "upusers",
         payload: data
@@ -124,7 +124,7 @@ export default {
 
     },
     updateViewAuthority(state, action) {
-      console.log(state, action)
+      //console.log(state, action)
       // 筛选出我拥有的路由
       let myView = [], forbiddenView = [];
       allAuthority.routes.forEach(item => {

@@ -33,7 +33,13 @@ let RouterView = connect(mapStateToProps)((props) => {
           <Redirect from="/" exact to="/main" />
           <Route path="/main" component={Main} />
           <Route path="/login" component={Login} />
-          <Redirect from="/" to="/login"></Redirect>
+          {/* <Redirect from="/" to="/login"></Redirect> */}
+          <Route path="/403" render={props => {
+            return <p>你无权访问当前页面</p>
+          }}></Route>
+          <Route path="/404" render={props => {
+            return <p>当前页面不存在</p>
+          }}></Route>
         </Switch>
       </Router>
     </IntlProvider>
