@@ -24,11 +24,10 @@ function StudentMange(props) {
         if (props.deleteState === 1) {
             message.success('删除成功');
             props.record()
-            props.getHasStudent()
-            props.getHasNoStudent()
-        } else if (props.deleteState === 0) {
-            return
         }
+        props.getHasStudent()
+        props.getHasNoStudent()
+
     }, [props.deleteState])
     //点击重置：
     let reset = () => {
