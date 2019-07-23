@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'dva';
 import { Route, Redirect, NavLink, Switch } from 'dva/router';
 import styles from "./main.css"
 import { Dropdown, Menu, Icon, Spin, Select, Modal, Form, Input } from 'antd';
 import { injectIntl } from 'react-intl';
-import Exoprts from "../main/exports/index"
 const { SubMenu } = Menu;
 const { Option } = Select;
 function IndexPage(props) {
   let [visible, setvisible] = useState(false);
-  let [url, seturl] = useState('https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png')
+  let [url] = useState('https://cdn.nlark.com/yuque/0/2019/png/anonymous/1547609339813-e4e49227-157c-452d-be7e-408ca8654ffe.png?x-oss-process=image/resize,m_fill,w_48,h_48/format,png')
   const menu = (
     <Menu>
       <Menu.Item key="0">
@@ -32,9 +31,7 @@ function IndexPage(props) {
     </Menu>
 
   );
-  // useEffect(() => {
-  //   console.log(props.upuser)
-  // }, [props.upuser])
+
   let showModal = () => {
     console.log(1);
     setvisible(true);
@@ -54,10 +51,6 @@ function IndexPage(props) {
     props.getUrl(formData)
     props.setUser({ user_id: res.user_id, avatar: props.imgUrl })
   }
-  let handleClick = e => {
-    // console.log('click ', e);
-
-  };
   const { getFieldDecorator } = props.form;
   //获取我的路由啥也不去渲染
   if (!props.myView.length) {
@@ -66,7 +59,9 @@ function IndexPage(props) {
   return (
     <div className={styles.layout}>
       <div className={styles.header}>
-        <h1 className={styles.logo}><img src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg' /></h1>
+        <h1 className={styles.logo}>
+          <img src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1551624718911&di=4a7004f8d71bd8da84d4eadf1b59e689&imgtype=0&src=http%3A%2F%2Fimg105.job1001.com%2Fupload%2Falbum%2F2014-10-15%2F1413365052_95IE3msH.jpg'  alt=""/>
+        </h1>
         <Select defaultValue="中文" style={{ width: 90 }}>
           <Option value="中文" onClick={() => props.changeLocale('zh')}>中文</Option>
           <Option value="英文" onClick={() => props.changeLocale('en')}>English</Option>
@@ -74,7 +69,7 @@ function IndexPage(props) {
         <div className={styles.logout}>
           <Dropdown overlay={menu}>
             <span onClick={showModal}>
-              <img src={props.imgUrl ? props.imgUrl : url} style={{ width: 50, height: 50, zIndex: 9999 }} />
+              <img src={props.imgUrl ? props.imgUrl : url} style={{ width: 50, height: 50, zIndex: 9999 }}  alt=""/>
               {props.userInfo.user_name}
             </span>
           </Dropdown>
@@ -90,7 +85,7 @@ function IndexPage(props) {
                   <Input type="text" style={{ marginBottom: 20 }} />
                 )}
                 <input type="file" name="" onChange={(e) => load(e, props.userInfo)} className={styles.files} />
-                <img src={props.imgUrl ? props.imgUrl : url} style={{}} className={styles.imgUrl} />
+                <img src={props.imgUrl ? props.imgUrl : url} style={{}} className={styles.imgUrl}  alt=""/>
               </Form.Item>
             </Form>
           </Modal>
@@ -116,14 +111,11 @@ function IndexPage(props) {
                     </span>
                   }
                 >{
-                    item.children.map(value => {
-                      if (!value.name) {
-                        return
-                      }
-                      return <Menu.Item key={value.name}>
+                    item.children.map(value => value.name?(
+                      <Menu.Item key={value.name}>
                         <NavLink to={value.path}>{props.intl.formatMessage({ id: value.name })}</NavLink>
                       </Menu.Item>
-                    })
+                    ):null)
                   }</SubMenu>
               })
             }

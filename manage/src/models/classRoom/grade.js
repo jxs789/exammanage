@@ -26,7 +26,7 @@ export default {
             }
         },
         //全部班级
-        *room({ payload, type }, { call, put }) {
+        *room(action, { call, put }) {
             let data = yield call(Allrooms);
             if (data.code === 1) {
                 yield put({
@@ -36,7 +36,7 @@ export default {
             }
         },
         //已分配教室的班级
-        *assignedroom({ }, { call, put }) {
+        *assignedroom(action, { call, put }) {
             let data = yield call(Assignedgrade);
             if (data.code === 1) {
                 yield put({
@@ -69,8 +69,7 @@ export default {
         *updategrades({ payload, type }, { call, put }) {
             // console.log(payload, 'Updategrade')
             let data = yield call(Updategrade, payload);
-            console.log("mmmmmmmmm......", data)
-            if (data.code == 1) {
+            if (data.code === 1) {
                 yield put({
                     type: "Updategrades",
                     payload: data

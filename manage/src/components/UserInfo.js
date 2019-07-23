@@ -7,7 +7,7 @@ function UserInfo(props){
     const handleSubmit = () => {
         props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
+           
           }
         });
     };
@@ -59,15 +59,4 @@ function UserInfo(props){
         
     </div>)
 }
-let mapStateToProps=state=>{
-  return {
-     
-  }
-}
-let mapDispatchToProps=dispatch=>{
-  return {
-    
-     
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Form.create()(UserInfo))
+export default connect()(Form.create()(UserInfo))

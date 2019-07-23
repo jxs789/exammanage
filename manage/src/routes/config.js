@@ -11,7 +11,6 @@ import Grade from "../pages/main/classRoom/grade"
 import Room from "../pages/main/classRoom/room"
 import Student from "../pages/main/classRoom/student"
 import ClassList from "../pages/main/checking/page/classList";
-import Page from '../pages/main/checking/page';
 import TestPaper from "../pages/main/checking/page/testPaper";
 import Exoprts from "../pages/main/exports/index"
 export default {

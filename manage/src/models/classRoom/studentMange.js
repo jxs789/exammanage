@@ -14,7 +14,7 @@ export default {
      *异步操作
      */
     effects: {
-        *getClassName({}, { call, put }) {
+        *getClassName(action, { call, put }) {
             let data = yield call(className);
             if (data.code === 1) {
                 yield put({
@@ -23,7 +23,7 @@ export default {
                 })
             }
         },
-        *getClassRoom({}, { call, put }) {
+        *getClassRoom(action, { call, put }) {
             let data = yield call(classRoom);
             if (data.code === 1) {
                 yield put({
@@ -32,7 +32,7 @@ export default {
                 })
             }
         },
-        *getHasRoomstudents({}, { call, put }) {
+        *getHasRoomstudents(action, { call, put }) {
             let data = yield call(hasCLassStudent);
             if (data.code === 1) {
                 yield put({
@@ -41,7 +41,7 @@ export default {
                 })
             }
         },
-        *getNoRoomstudents({}, { call, put }) {
+        *getNoRoomstudents(action, { call, put }) {
             let data = yield call(hasNoClassStudent);
             if (data.code === 1) {
                 yield put({

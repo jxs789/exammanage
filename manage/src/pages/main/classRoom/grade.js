@@ -3,6 +3,7 @@ import { connect } from "dva";
 import "antd/dist/antd.css";
 import { injectIntl } from 'react-intl';
 import { Form, Button, Table, Divider, Modal, Input } from "antd";
+
 function grade(props) {
 	let [flag, setFlag] = useState(false)
 	const addFn = () => {
@@ -51,7 +52,7 @@ function grade(props) {
 					添加班级
           </Button>
 				<div className="questions_table">
-					<Table columns={columns} dataSource={props.getgrade} size="middle">
+					<Table columns={columns} dataSource={props.getgrade} size="middle" rowKey='grade_id'>
 					</Table>
 				</div>
 			</div>
@@ -74,7 +75,6 @@ function grade(props) {
 							<Input type="textarea" />
 						)}
 					</Form.Item>
-
 				</Form>
 			</Modal>
 		</div >
@@ -87,16 +87,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
 	return {
-		//添加班级
-		// getaddgrade: (payload) => {
-		// 	dispatch({
-		// 		type: "grade/addgrade",
-		// 		paload
-		// 	})
-		// },
 		//已分配教室的班级
 		getassignedgrade: () => {
-			console.log(222)
 			dispatch({
 				type: "grade/assignedroom",
 			})
@@ -107,20 +99,6 @@ const mapDispatchToProps = dispatch => {
 				type: "grade/undistributedgrades",
 			})
 		},
-		//删除班级
-		// getremovegrade: (paload) => {
-		// 	dispatch({
-		// 		type: "grade/removegrade",
-		// 		paload
-		// 	})
-		// },
-		//更新班级
-		// getupdategrade: (paload) => {
-		// 	dispatch({
-		// 		type: "grade/updategradee",
-		// 		paload
-		// 	})
-		// }
 	}
 }
-export default injectIntl( connect(mapStateToProps, mapDispatchToProps)(Form.create()(grade)))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Form.create()(grade)))
