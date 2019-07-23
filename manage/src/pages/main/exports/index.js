@@ -13,13 +13,11 @@ function Exports(props) {
         reader.onload = function (e) {
             var data = new Uint8Array(e.target.result);
             var workbook = XLSX.read(data, { type: 'array' });
-            console.log(workbook)
 
             /* DO SOMETHING WITH workbook HERE */
             // 读取第2张表
             var sheetName = workbook.SheetNames[0];
             var obj = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-            console.log(obj)
 
             // 处理表格数据
             setData(obj);

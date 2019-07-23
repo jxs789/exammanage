@@ -36,7 +36,6 @@ function IndexPage(props) {
   //   console.log(props.upuser)
   // }, [props.upuser])
   let showModal = () => {
-    console.log(1);
     setvisible(true);
   };
 

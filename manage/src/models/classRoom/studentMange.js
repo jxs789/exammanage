@@ -1,20 +1,20 @@
-import {className,classRoom,deleteStudent,hasCLassStudent,hasNoClassStudent} from "../../services/index";
+import { className, classRoom, deleteStudent, hasCLassStudent, hasNoClassStudent } from "../../services/index";
 export default {
     namespace: "student",
     //模块状态
     state: {
-       classRoom:[],        //班级
-       className:[],        //班级名称
-       studentsHasRoom:[],  //所有的已经分班的学生
-       studentsHasNoRoom:[], //所有的没有分班的学生
-       students:[],         //分班的学生和没有分班的学生合并在一起
-       deleteState:-1,      //删除学生的状态
+        classRoom: [],        //班级
+        className: [],        //班级名称
+        studentsHasRoom: [],  //所有的已经分班的学生
+        studentsHasNoRoom: [], //所有的没有分班的学生
+        students: [],         //分班的学生和没有分班的学生合并在一起
+        deleteState: -1,      //删除学生的状态
     },
     /**
      *异步操作
      */
     effects: {
-        *getClassName({}, { call, put }) {
+        *getClassName({ }, { call, put }) {
             let data = yield call(className);
             if (data.code === 1) {
                 yield put({
@@ -23,7 +23,7 @@ export default {
                 })
             }
         },
-        *getClassRoom({}, { call, put }) {
+        *getClassRoom({ }, { call, put }) {
             let data = yield call(classRoom);
             if (data.code === 1) {
                 yield put({
@@ -32,7 +32,7 @@ export default {
                 })
             }
         },
-        *getHasRoomstudents({}, { call, put }) {
+        *getHasRoomstudents({ }, { call, put }) {
             let data = yield call(hasCLassStudent);
             if (data.code === 1) {
                 yield put({
@@ -41,7 +41,7 @@ export default {
                 })
             }
         },
-        *getNoRoomstudents({}, { call, put }) {
+        *getNoRoomstudents({ }, { call, put }) {
             let data = yield call(hasNoClassStudent);
             if (data.code === 1) {
                 yield put({
@@ -50,8 +50,8 @@ export default {
                 })
             }
         },
-        *deleteStudent({payload}, { call, put }) {
-            let data = yield call(deleteStudent,payload);
+        *deleteStudent({ payload }, { call, put }) {
+            let data = yield call(deleteStudent, payload);
             if (data.code === 1) {
                 yield put({
                     type: "deleteState",
@@ -63,21 +63,21 @@ export default {
     reducers: {
         classNames(state, action) {
             return { ...state, className: action.payload }
-        }, 
+        },
         classRooms(state, action) {
             return { ...state, classRoom: action.payload }
-        }, 
+        },
         deleteState(state, action) {
             return { ...state, deleteState: action.payload }
         },
         studentHasRoom(state, action) {
-            return { ...state, students:state.students.concat(action.payload) }
-        }, 
-        studentHasNoRoom(state, action) {
-            return { ...state, students:state.students.concat(action.payload) }
+            return { ...state, students: state.students.concat(action.payload) }
         },
-        record(state,action){
-            return {...state,deleteState: action.payload}
-        }  
+        studentHasNoRoom(state, action) {
+            return { ...state, students: state.students.concat(action.payload) }
+        },
+        record(state, action) {
+            return { ...state, deleteState: action.payload }
+        }
     }
 }

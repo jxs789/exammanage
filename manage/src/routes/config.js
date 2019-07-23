@@ -1,6 +1,7 @@
 import AddQuestion from "../pages/main/question/addQuestion"
 import QuestionType from "../pages/main/question/questionsType"
 import WatchQuestion from "../pages/main/question/checkTheitem"
+import Questions from "../pages/main/question/questions/questions"
 import AddUser from "../pages/main/user/addUser"
 import ShowUser from "../pages/main/user/showUser"
 import AddExam from "../pages/main/exam/addexam/addExam"
@@ -34,8 +35,15 @@ export default {
           view_id: "main-watchQuestions",
           name: "router.questions.view",
           path: "/main/watchquestion",
-          component: WatchQuestion
+          component: WatchQuestion,
+        },
+        {
+          name: "",
+          path: "/main/questions/:id",
+          component: Questions,
+          view_id: "main-questionsDetail"
         }
+
       ]
     },
     {
@@ -112,19 +120,19 @@ export default {
       path: "",
       children: [
         {
-          view_id: "main-examPaperClassList",
+          view_id: "main-examPaperClassmate",
           name: "router.examination.class",
-          path: "/main/page/classList",
+          path: "/main/page",
           component: ClassList,
         },
         {
-          view_id: "main-examPaperClassmate",
+          view_id: "main-examPaperClassList",
           name: "",
-          path: "/main/page/testPaper",
+          path: "/main/testPaper",
           component: TestPaper,
         },
         {
-         view_id: "main-examPaperClassList",
+          view_id: "main-examPaperClassList",
           name: "router.exports",
           path: "/main/exports",
           component: Exoprts,

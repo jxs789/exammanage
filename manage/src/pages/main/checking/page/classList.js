@@ -59,7 +59,7 @@ function ClassList(props) {
             key: 'action',
             render: (text, record) =>
                 props.AllClassroom.length >= 1 ? (
-                    <a href={`/#/main/page/testPaper?grade_id=${record.grade_id}`}>批卷</a>
+                    <a href={`/#/main/testPaper?grade_id=${record.grade_id}`}>批卷</a>
                 ) : null,
         },
     ];
@@ -76,13 +76,11 @@ function ClassList(props) {
 
     //获取初始教室数据
     useEffect(() => {
-        console.log(props.AllClassroom)
         setDataSource(props.AllClassroom)
     }, [props.AllClassroom])
 
     //显示弹框信息
     useEffect(() => {
-        console.log(props, "3445")
         if (props.room_msg === 1) {
             message.success("添加成功")
             props.addRoom()

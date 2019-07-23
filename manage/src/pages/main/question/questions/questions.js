@@ -55,4 +55,4 @@ const mapDispatch = dispatch => {
         },
     }
 }
-export default connect(mapState, mapDispatch)(Question);
+export default injectIntl(connect(mapState, mapDispatch)(Question));

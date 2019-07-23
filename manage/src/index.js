@@ -18,7 +18,7 @@ app.model(require('./models/showUser').default);
 app.model(require('./models/classRoom/grade').default);
 app.model(require('./models/classRoom/studentMange').default);
 app.model(require("./models/user/userInfo").default)
-app.model(require("./models/room").default)
+app.model(require("./models/classRoom/room").default)
 app.model(require('./models/global').default);
 app.model(require("./models/checkPapers/index").default)
 // app.model(require('./models/questions').default)
