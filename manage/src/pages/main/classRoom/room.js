@@ -11,7 +11,7 @@ function Room(props) {
     const handleDelete = key => {
         //删除数据
         props.delData({ room_id: key })
-
+        props.getRoom()
     };
     const columns = [
         {
@@ -52,13 +52,18 @@ function Room(props) {
         if (props.room_msg === 1) {
             message.success("添加成功")
             props.addRoom()
+            props.getRoom()
         } else if (props.room_msg === 0) {
             message.error("添加失败")
         } else {
             return
         }
-        props.getRoom()
-    }, [props.room_msg])
+        if (props.room === 1) {
+            props.getRoom()
+        } else if (props.room === 0) {
+            return
+        }
+    }, [props.room_msg,props.room])
 
     //添加room信息
     const handleSubmit = () => {

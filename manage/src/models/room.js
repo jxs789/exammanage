@@ -4,7 +4,8 @@ export default {
   namespace: 'room',
   state: {
     roomData: [],//获取的所有教室数据
-    room_msg: -1 //数据添加后返回给用户的提示信息
+    room_msg: -1, //数据添加后返回给用户的提示信息
+    room: -1
   },
   effects: {
     //获得教室信息
@@ -35,14 +36,20 @@ export default {
 
     },
     *delRoom({ payload }, { call, put }) {  // eslint-disable-line
-      let data = yield call(DelRoom, payload)
-      console.log(data)
-      //把值返回去
-      yield put({
-        type: "Room_Msg",
-        payload: data.code
-      })
-    },
+      if (payload) {
+        let data = yield call(DelRoom, payload)
+        //把值返回去
+        yield put({
+          type: "Room_Msg",
+          payload: data.code
+        })
+      } else {
+        yield put({
+          type: "Room_Msg",
+          payload: -1
+        })
+      }
+    }
   },
   reducers: {
     mangerRoom(state, action) {
@@ -50,6 +57,9 @@ export default {
     },
     roomMsg(state, action) {
       return { ...state, room_msg: action.payload };//返回前面信息
+    },
+    Room_Msg(state, action) {
+      return { ...state, room: action.payload }
     }
   }
 };

@@ -1,18 +1,55 @@
-import AddQuestion from "../pages/main/question/addQuestion"
-import QuestionType from "../pages/main/question/questionsType"
-import WatchQuestion from "../pages/main/question/checkTheitem"
-import AddUser from "../pages/main/user/addUser"
-import ShowUser from "../pages/main/user/showUser"
-import AddExam from "../pages/main/exam/addexam/addExam"
-import ExamEdit from "../pages/main/exam/addexam/examEdit"
-import ExamList from "../pages/main/exam/examList/eaxmList"
-import ExamDetail from "../pages/main/exam/examList/examDetail"
-import Grade from "../pages/main/classRoom/grade"
-import Room from "../pages/main/classRoom/room"
-import Student from "../pages/main/classRoom/student"
-import ClassList from "../pages/main/checking/page/classList";
-import TestPaper from "../pages/main/checking/page/testPaper";
-import Exoprts from "../pages/main/exports/index"
+import dynamic from 'dva/dynamic'
+
+const AddQuestion = dynamic({
+  component: () => import('../pages/main/question/addQuestion')
+})
+const QuestionType = dynamic({
+  component: () => import('../pages/main/question/questionsType')
+})
+const WatchQuestion = dynamic({
+  component: () => import('../pages/main/question/checkTheitem')
+})
+const AddUser = dynamic({
+  component: () => import('../pages/main/user/addUser')
+})
+const ShowUser = dynamic({
+  component: () => import('../pages/main/user/showUser')
+})
+const AddExam = dynamic({
+  component: () => import('../pages/main/exam/addexam/addExam')
+})
+const ExamEdit = dynamic({
+  component: () => import('../pages/main/exam/addexam/examEdit')
+})
+const ExamList = dynamic({
+  component: () => import('../pages/main/exam/examList/eaxmList')
+})
+const ExamDetail = dynamic({
+  component: () => import('../pages/main/exam/examList/examDetail')
+})
+const Grade = dynamic({
+  component: () => import('../pages/main/classRoom/grade')
+})
+const Room = dynamic({
+  component: () => import('../pages/main/classRoom/room')
+})
+const Student = dynamic({
+  component: () => import('../pages/main/classRoom/student')
+})
+const ClassList = dynamic({
+  component: () => import('../pages/main/checking/page/classList')
+})
+const TestPaper = dynamic({
+  component: () => import('../pages/main/checking/page/testPaper')
+})
+const Exoprts = dynamic({
+  component: () => import('../pages/main/exports/index')
+})
+const Questions = dynamic({
+  component: () => import('../pages/main/question/questions/questions')
+})
+
+
 export default {
   routes: [
     {
@@ -34,6 +71,12 @@ export default {
           name: "router.questions.view",
           path: "/main/watchquestion",
           component: WatchQuestion
+        },
+        {
+          name: "",
+          path: "/main/questions/:id",
+          component: Questions,
+          view_id: "main-questionsDetail"
         }
       ]
     },
@@ -123,13 +166,13 @@ export default {
           component: TestPaper,
         },
         {
-         view_id: "main-examPaperClassList",
+          view_id: "main-examPaperClassList",
           name: "router.exports",
           path: "/main/exports",
           component: Exoprts,
         }
       ]
     },
-
   ]
 }
+
